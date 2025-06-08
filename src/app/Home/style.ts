@@ -34,5 +34,13 @@ export const styles = StyleSheet.create({
     paddingBottom: 16,
     borderBottomWidth: 1,
     borderBottomColor: '#E4E6EC'
+  },
+  clearButton: {
+    marginLeft: 'auto'
+  },
+  clearText: {
+    fontSize: 12,
+    color: '#828282',
+    fontWeight: 600
   }
 })
