@@ -4,5 +4,11 @@ import { styles } from './styles'
 
 type InputProps = Readonly<TextInputProps>
 export function Input({ ...rest }: InputProps) {
-  return <TextInput style={styles.container} {...rest} />
+  return (
+    <TextInput
+      style={styles.container}
+      placeholderTextColor="#74798B"
+      {...rest}
+    />
+  )
 }
