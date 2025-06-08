@@ -31,13 +31,17 @@ const ITEMS = [
 
 export function Home() {
   const [filter, setFilter] = useState<FilterStatus>(FilterStatus.PENDING)
+  const [description, setDescription] = useState('')
 
   return (
     <View style={styles.container}>
       <Image source={require('@/assets/logo.png')} style={styles.logo} />
 
       <View style={styles.form}>
-        <Input placeholder="O que você precisa comprar?" />
+        <Input
+          placeholder="O que você precisa comprar?"
+          onChangeText={setDescription}
+        />
         <Button title="Adicionar" />
       </View>
 
@@ -48,7 +52,7 @@ export function Home() {
               key={status}
               status={status}
               isActive={status === filter}
-              onPress={() => setFilter(status)}
+              onPress={() => setFilter(status)} // TODO: Fazer verificação para só executar se o filtro for diferente
             />
           ))}
 
