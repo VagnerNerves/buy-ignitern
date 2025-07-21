@@ -1,5 +1,12 @@
 import { useState } from 'react'
-import { View, Image, TouchableOpacity, Text, FlatList } from 'react-native'
+import {
+  View,
+  Image,
+  TouchableOpacity,
+  Text,
+  FlatList,
+  Alert
+} from 'react-native'
 
 import { styles } from './style'
 
@@ -11,27 +18,42 @@ import { Filter } from '@/components/Filter'
 import { Item } from '@/components/Item'
 
 const FILTER_STATUS: FilterStatus[] = [FilterStatus.PENDING, FilterStatus.DONE]
-const ITEMS = [
-  {
-    id: '1',
-    status: FilterStatus.DONE,
-    description: '1 pacote de café'
-  },
-  {
-    id: '2',
-    status: FilterStatus.PENDING,
-    description: '3 pacotes de macarrão'
-  },
-  {
-    id: '3',
-    status: FilterStatus.PENDING,
-    description: '3 cebolas'
-  }
-]
+// const ITEMS = [
+//   {
+//     id: '1',
+//     status: FilterStatus.DONE,
+//     description: '1 pacote de café'
+//   },
+//   {
+//     id: '2',
+//     status: FilterStatus.PENDING,
+//     description: '3 pacotes de macarrão'
+//   },
+//   {
+//     id: '3',
+//     status: FilterStatus.PENDING,
+//     description: '3 cebolas'
+//   }
+// ]
 
 export function Home() {
   const [filter, setFilter] = useState<FilterStatus>(FilterStatus.PENDING)
   const [description, setDescription] = useState('')
+  const [itens, setItens] = useState<any>([])
+
+  function handleAdd() {
+    if (!description.trim()) {
+      return Alert.alert('Adicionar', 'Informe a descrição para adicionar.')
+    }
+
+    const newItem = {
+      id: Math.random().toString(36).substring(2),
+      description: description.trim(),
+      status: FilterStatus.PENDING
+    }
+
+    setItens(prevState => [...prevState, newItem])
+  }
 
   return (
     <View style={styles.container}>
@@ -42,7 +64,7 @@ export function Home() {
           placeholder="O que você precisa comprar?"
           onChangeText={setDescription}
         />
-        <Button title="Adicionar" />
+        <Button title="Adicionar" onPress={handleAdd} />
       </View>
 
       <View style={styles.content}>
@@ -62,7 +84,7 @@ export function Home() {
         </View>
 
         <FlatList
-          data={ITEMS}
+          data={itens}
           keyExtractor={item => item.id}
           renderItem={({ item }) => (
             <Item
